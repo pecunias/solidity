@@ -594,9 +594,9 @@ Transaction initiater -> msg.sender
 
 ## Geth
 Install Geth client by installer
-> geth --help
+`geth --help`
 
-> mkdir geth-demo
+`mkdir geth-demo`
 
 ## genesis.json
 Necessary:
@@ -614,71 +614,71 @@ datadir means specify the directory in which this database will be created
 
 ## geth console
 New account
->  geth account new --password .\password
+`geth account new --password .\password`
 
- > geth account list
+ `geth account list`
 
  Account created does not belong to the prinvate network created
 
  To update account password
- > geth account update < address >  
+ `geth account update < address >  `
 
 # geth javascript console
-> geth --datadir ./datadir_node_0 console
+`geth --datadir ./datadir_node_0 console`
 
-> web3
+`web3`
 JSON output
 id & ip address of the node from which the geth console has been brought up
 
-> eth 
+`eth `
 Interact with ethereum blockchain and contracts
 
-> net
+`net`
 info
 
-> admin
+`admin`
 Monitor 
 
-> personal
+`personal`
 
-> miner (full node)
+`miner (full node)`
 
 ## mining blocks using geth client
-> eth.getblock(0)
+`eth.getblock(0)`
 Get the block
 
-> eth.accounts
+`eth.accounts`
 
-> personal.newAccount('123;)
+`personal.newAccount('123;)`
 Argument is password
 Address
 
-> eth.getBalance(eth.accounts[0])
+`eth.getBalance(eth.accounts[0])`
 
-> eth.blockNumber
+`eth.blockNumber`
 
-> miner.start(1)
+`miner.start(1)`
 Arguments is parallel threads
 Blocks will be added, mining rewards 
 
 etherBase is automatically configured
 Mining rewards go there
 
-> eth.blockNumber
+`eth.blockNumber`
 Updated to 4!
 
 ## invoking transactions with Geth
-> eth.sendTransaction({from:eth.accounts[0], to:eth.accounts[1], value: web3.toWei(1, "ether")})
+`eth.sendTransaction({from:eth.accounts[0], to:eth.accounts[1], value: web3.toWei(1, "ether")})`
 argument is JSON datastructure with details, Wei
 Authentication needed/unlock
 
-> personal.unlockAccount(eth.accounts[0], '123')
+`personal.unlockAccount(eth.accounts[0], '123')`
 
-> web3.fromWei(eth.getBalance(eth.accounts[0]), "ether")
+`web3.fromWei(eth.getBalance(eth.accounts[0]), "ether")`
 
 web3: Invalid sender
 
->> https://github.com/ethereum/go-ethereum#defining-the-private-genesis-state
+`https://github.com/ethereum/go-ethereum#defining-the-private-genesis-state`
 
 
 Generate new genesis block
@@ -689,18 +689,18 @@ Ctrl + c is the shortcut to clear the input prompt.Ctrl + d will exit the consol
 Alternatively, you can type the command exit
 
 ## Adding a node to a network
-> geth --datadir ./datadir_node_0 console 
+`geth --datadir ./datadir_node_0 console `
 datadir is the node from where we went to start up console
 networkid => id of the network we want to connect to (chainId value from genesis.json)
 
-> admin.nodeInfo - to view information about the node
+`admin.nodeInfo` - to view information about the node
 
 ## Add new node
-> geth --datadir ./datadir_node_1 init genesis.json
+`geth --datadir ./datadir_node_1 init genesis.json`
 again
 
 Bring up console of that node
-geth --datadir ./datadir_node_1 --networkid 33 --port 30308 --nodiscover console 
+`geth --datadir ./datadir_node_1 --networkid 33 --port 30308 --nodiscover console `
 
 ## Fatal: Error starting protocol stack: Access is denied.
 https://ethereum.stackexchange.com/questions/10616/fatal-error-starting-protocol-stack-access-is-denied
@@ -712,18 +712,18 @@ There are 2 options:
 
 (add --ipcdisable).
 
-> admin.nodeInfo
+`admin.nodeInfo`
 
 To add a node as a peer of the previous node which we had created, use node URI;
 Available as the value of this enode property
 
-> admin.peers
+`admin.peers`
 Peer nodes of particular nodes
 
-> admin.addPeer("enode://7df9a259ccca3d780862681d1cccfe66ef8d70f93e94a2307ebf626f60aacf04dc65ade8154a444490ccfed554cc9771eb3a9a515a46f6c73386fd7eebfcfd40@127.0.0.1:30308?discport=0")
+`admin.addPeer("enode://7df9a259ccca3d780862681d1cccfe66ef8d70f93e94a2307ebf626f60aacf04dc65ade8154a444490ccfed554cc9771eb3a9a515a46f6c73386fd7eebfcfd40@127.0.0.1:30308?discport=0")`
 Add peer node to node
 
-Use >admin.peers again
+Use `admin.peers` again
 
 
 -------------
@@ -731,3 +731,35 @@ Use >admin.peers again
 
 ## Developing a contract with Solidity
 
+See greeter > contracts > greetings.sol
+
+## Compile a Solidity smart contract
+Install solc compiler in NPM
+`npm install solc -g`
+
+Usage:
+`solc --combined-json=abi,bin,metadata --output-dir . greetings.sol`
+(bin is binary code, abi is application binary interface)
+
+or with solcjs:
+`solcjs --abi --bin --output-dir . greetings.sol`
+
+## Writing a compile script
+Install packages required by this application
+`npm install --save solc mocha ganache-cli web3`
+
+Check compile.js
+
+Output is JSON with evm bytecode including opcodes
+
+## Mocha test framework
+Export compiler output so that it can be used by our testing script
+
+Use Mocha test framework by created directory
+
+See greetings.test.js, editted package.json npm script test
+
+## Integrating Mocha with Ethereum
+To integrate, use web3 package
+
+Ganache framework will be used to provide private network

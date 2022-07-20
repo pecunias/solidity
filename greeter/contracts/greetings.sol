@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: ISC
 
-// compile version
+// define acceptable compiler version
 pragma solidity ^0.8.15;
 
 // contract definition
@@ -27,4 +27,3 @@ contract Greetings {
         return(message);
     }
 }
-

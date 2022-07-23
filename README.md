@@ -763,3 +763,54 @@ See greetings.test.js, editted package.json npm script test
 To integrate, use web3 package
 
 Ganache framework will be used to provide private network
+
+--------------
+# Tools for smart contract development
+## Writing a contract deployment script
+See greetings.test.js
+
+## Testing a function on a deployed contract
+
+## Seperating deployment from testing
+Create compiler script with all steps needed in order to deploy a smart contract to the ethereum network
+-> deployment.js
+
+Downside is that network is gone after deployment
+
+## Ganache framework
+Download Ganache - part of truffle suite
+https://trufflesuite.com/ganache/
+
+Deploy contracts during development and get quick feedback 
+
+Changes in deployment.js
+
+## Interacting with a contract from JavaScript
+In order to interact with a deployed contract, we will need two things:
+- EVM byte code for the contract so it can be executed
+- JSON interface (ABI)
+
+To get it, run:
+`solcjs contracts/greetings.sol --abi -o .`
+
+Created interact.js
+
+# Deploying a contract to Rinkeby
+Add machine as nodes to the rinkeby test network
+`geth --rinkeby --rpc --rpcapi="eth,net,web3,personal,txpool --syncmode=light`
+
+rpc enables rpc endpoint to connect to the rinkeby network using geth
+rpcapi is defining apis available when open geth console from our node which is connected to rinkeby network
+syncmode is type
+
+Or just use `geth --rinkeby` that works as well
+
+Get IP address after connecting to rinkeby
+`geth attach HTTP://127.0.0.1:7545`
+
+WARN [07-21|20:32:37.137] Please note, Rinkeby has been deprecated. It will still work for the time being, 
+WARN [07-21|20:32:37.138] but there will be no further hard-forks shipped for it. Eventually the network   
+WARN [07-21|20:32:37.138] will be permanently halted after the other networks transition through the merge 
+WARN [07-21|20:32:37.138] and prove stable enough. For the most future proof testnet, choose Sepolia as    
+WARN [07-21|20:32:37.138] your replacement environment (--sepolia instead of --rinkeby).
+
